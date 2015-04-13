@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Why I like Vim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/keys.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="css/fonts.css" type="text/css" /> -->
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Why I like
+
+![Vim logo](img/vimlogo.png)
+
+<small>Proudly built with [Vim](http://www.vim.org/) and [remark.js](http://remarkjs.com/)
+
+---
+layout: false
+
+.left-column[
+  ## What is Vim
+]
+.right-column[
+Vim is a **modal command-oriented** text editor inspired from the Vi editor
+
+### A little bit of history
+
+- Development started in **1988** by Bram Moolenaar as a Vi clone for the Amiga based on Stevie (another Vi clone)
+
+- First version (1.14) released in **1991**
+
+- Initally the name meant Vi IMitation but in **1992** was changed to Vi IMproved
+
+]
+
+---
+.left-column[
+  ## Some basic concepts
+]
+.right-column[
+
+**Modal editing** is the main difference to the other editors <br><small>(what confuses you when you first start VI(m))</small>
+
+* Modal means that the keypresses have **different meanings** in different modes
+
+    * Modes can be thought as contexts
+
+There are 4 main modes:
+
+- Normal (aka command) <kbd>ESC</kbd>
+
+- Insert <kbd>i</kbd>
+
+- Visual <kbd>v</kbd>
+
+- Command-line <kbd>:</kbd>
+]
+
+---
+
+.left-column[
+## The bare minimum
+]
+
+.right-column[
+
+These are the basic concepts you **need** to use Vi(m). <br>&nbsp;<small>(With this knowledge you can write, save and exit.)</small>
+
+<kbd>i</kbd> enters **insert** mode <br><small>(this allows you to write text and move around as you do in the editor you use)</small>
+
+To exit Vim you need to press <kbd>ESC</kbd> **twice** or more (this ensures you get back in normal mode). If you don't know what to do pressing <kbd>ESC</kbd> is the right thing to do.
+
+Then you have several options:
+
+- To **save** the file type <kbd>:</kbd> <kbd>w</kbd> <kbd>CR</kbd>
+
+- To **save** and **exit** type <kbd>:</kbd> <kbd>w</kbd> <kbd>q</kbd> <kbd>CR</kbd>
+
+- To **exit without saving** type <kbd>:</kbd> <kbd>q</kbd> <kbd>!</kbd> <kbd>CR</kbd>
+
+- To **exit** (if no modifications) type <kbd>:</kbd> <kbd>q</kbd> <kbd>CR</kbd>
+
+    - This raises an error **if changes were made**
+
+]
+
+---
+
+
+.left-column[
+## The main concept
+]
+.right-column[
+Vim commands are like the phrases of a language. Similarly to what happens in programming or spoken languages commands share a common structure.
+
+Vim offers many "words" to compose commands:
+
+- **Nouns**: <kbd>w</kbd> ord, <kbd>s</kbd> entence, <kbd>p</kbd> aragraph <br><small>(to move around)</small>
+
+- **Modifiers**: <kbd>i</kbd> nside, <kbd>a</kbd> round <br><small>(alter meaning of nouns)</small>
+
+- **Verbs**: <kbd>d</kbd> elete, <kbd>c</kbd> hange <br><small>(change text based on motion)</small>
+
+- **Counts**: number of repetitions of the command <br><small>(can be specified before a command)</small>
+
+So the structure of a Vim "phrase" is the following
+
+- [ <kbd>Count</kbd> ] <kbd>Verb</kbd> [ <kbd>Modifier</kbd> ] <kbd>Noun</kbd>
+
+]
+
+---
+
+.left-column[
+## Some examples
+]
+
+.right-column[
+<kbd>d</kbd> <kbd>w</kbd> : **d**elete **w**ord
+<br><small>(deletes the text from the cursor up to the next word beginning)</small>
+
+<kbd>d</kbd> <kbd>i</kbd> <kbd>p</kbd> : **d**elete **i**nner **p**aragraph
+<br><small>(inner means without the surrounding newlines)</small>
+
+<kbd>c</kbd> <kbd>a</kbd> <kbd>w</kbd> : **c**hange **a**round **w**ord
+<br><small>(deletes the word under the cursor spaces included and puts the editor in insert mode)</small>
+
+<kbd>10</kbd> <kbd>i</kbd> <kbd>hello</kbd> <kbd>CR</kbd> <kbd>ESC</kbd> : **10** **t**imes **i**nsert '*hello*' \n
+<br><small>(writes 10 times hello in separate lines)</small>
+  * text can be part of a command
+
+<kbd>c</kbd> <kbd>/</kbd> <kbd>hello</kbd> <kbd>CR</kbd> <kbd>test</kbd> <kbd>ESC</kbd> : **c**hange to '*hello*' with '*test*'
+<br><small>(deletes from the cursor to the first match of "hello" inserting "test" in place of the text present before)</small>
+
+<kbd>"</kbd> <kbd>+</kbd> <kbd>y</kbd> <kbd>f</kbd> <kbd>c</kbd> : in register + **y**ank **f**orward '*c*'
+<br><small>(copy up to to the first instance of the character 'c' on the line included in the + register)</small>
+]
+
+---
+
+.left-column[
+## The importance of "phrases"
+]
+
+.right-column[
+* This way of working is unsual but allows a more **direct interaction** with the editor
+
+* Learning a new "word" means being able to use it to form **new "phrases"**
+
+* The "phrase" structure (along with great consistency in bindings) produces an unmatched flexibility
+
+  * It allows the user to "speak" to the editor
+
+* So what is different about Vim (applies to Vi as well) is that you can **compose simple pieces** to obtain the result that you need.
+
+<blockquote><p>Vim allows me to do what I’m thinking, and doesn’t make me think about what I’m doing.</p>
+  .author[http://csswizardry.com]</blockquote>
+
+]
+
+---
+
+.left-column[
+## An example of phrases
+]
+.right-column[
+.table-keys[
+
+This table should clarify in which way vim commands are like phrases.
+
+|| <kbd>d</kbd><br>delete | <kbd>y</kbd><br>yank | <kbd>gU</kbd><br>upper case |  <kbd>v</kbd><br>visual| ... |
+|------|--------|--------|--------|-------|-------|
+| <kbd>ip</kbd><br>inner paragraph | <kbd>d ip</kbd> | <kbd>y ip</kbd> | <kbd>gU ip</kbd> | <kbd>v ip</kbd> |
+| <kbd>w</kbd><br>word | <kbd>d w</kbd>  | <kbd>y w</kbd>   | <kbd>gU w</kbd>  | <kbd>v w</kbd>  | |
+| <kbd>$</kbd><br>end of line | <kbd>d $</kbd>   | <kbd>y $</kbd>   | <kbd>gU $</kbd>  | <kbd>v $</kbd>  | |
+| <kbd>G</kbd><br>end of file | <kbd>d G</kbd>   | <kbd>y G</kbd>   | <kbd>gU G</kbd>  | <kbd>v G</kbd>  | |
+| ... | | | | | |
+]
+]
+
+---
+
+.left-column[
+## Vim efficency
+]
+.right-column[
+Surpassed the initial "confusion" if the user learns **some basic** verbs and nouns will be able to compose many commands
+
+* Most "phrases" you can "say" to Vim are **very short** (usually at most 6/7 chars excluding patterns and text)
+
+* The use of **single chars** as words allows to quickly perform even very complex actions
+
+By using vim you will even end the violence against your mouse :)
+
+<kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> as navigation keys arose as an accident due to limitations of ADM-3A
+
+  * the position of these keys seems not so important. Instead it enables cursor movement while remaining on the home row
+]
+
+---
+template: inverse
+
+## Below the surface
+
+---
+
+.left-column[
+## Below the surface
+]
+.right-column[
+The "phrases" are the main **distinguishing feature** of the Vi-like editors. But the "magic" doesn't end here.
+
+Vim offers many tools to change text like:
+* Visual mode
+    * especially visual block mode
+* Internal commands
+    * substitions
+    * global commands
+
+* Ranges
+
+* Command line integration
+    * Filtering/reading the file through external commands
+
+* Registers
+
+* Marks
+
+* Folds
+
+* Macros
+]
+
+---
+
+.left-column[
+## Visual mode
+]
+.right-column[
+**Visual mode** allows to perform operations on selections.
+
+* There are three types of **visual selection**:
+
+    * <kbd>v</kbd> selects characterwise
+
+    * <kbd>V</kbd> (uppercase) selects linewise
+
+    * <kbd>CTRL</kbd> + <kbd>v</kbd> selects blockwise
+
+* When in visual mode all the **usual movements** are **available** (searching, moving to characters, etc)
+
+* Once the selection is done "verbs" can be **applied** to it
+
+Examples:
+
+* <kbd>v</kbd> <kbd>/</kbd> <kbd>hello</kbd> <kbd>CR</kbd> <kbd>d</kbd>
+<br><small>(selects up to the first occourrence of '*hello*' and delete)</small>
+
+* <kbd>CTRL-V</kbd> <kbd>I</kbd> <kbd>hello</kbd> <kbd>ESC</kbd>
+<br><small>(selects a block and insert the string '*hello*' on each line)</small>
+]
+
+---
+
+.left-column[
+## Internal commands
+]
+.right-column[
+Vim has a prompt that allow the **execution** of many commands
+
+### Substitution
+
+Substitution is one of the **most useful** functions. It corresponds to search and replace.
+
+This command is executed by using the following syntax
+
+```java
+s/pattern/substitution/
+```
+
+* This resembles sed or perl-like substitutions
+
+Examples:
+
+* <kbd>:</kbd> <kbd class="remark-code">s/hello/world/</kbd>
+<br><small>(substitutes '*world*' to '*hello*' on the current line)</small>
+
+* <kbd>:</kbd> <kbd class="remark-code">s/\v(def\s+\w+\s\*)\\((\w+),\s*(\w+)\\)/\1(\3, \2)/</kbd>
+<br><small>(exchange parameters of a 2-args python-like function signature)</small>
+]
+
+---
+
+.left-column[
+## Internal commands
+]
+.right-column[
+### Global commands
+
+Global commands allow to **perform actions** on lines that match (or don't)
+
+The syntax is:
+
+```perl
+g/pattern/action
+```
+to run an action if **there is** a match
+
+```perl
+v/pattern/action
+```
+to run an action if **there is no** match
+
+Examples:
+
+* <kbd>:</kbd> <kbd>%</kbd> <kbd>.remark-code[g/hello/d]</kbd>
+<br><small>(deletes all the lines that contain the string '*hello*')</small>
+
+* <kbd>:</kbd> <kbd>%</kbd> <kbd>.remark-code[g/hello/]</kbd> <kbd>.remark-code[s/world/earth/g]</kbd>
+<br><small>(substitutes '*earth*' to '*world*' in the lines containing '*hello*')</small>
+]
+
+---
+
+.left-column[
+## Ranges
+]
+.right-column[
+Ranges allow to limit the **scope** a command.
+
+Ranges can be of **different types**:
+* <kbd>%</kbd> means work on the **entire file**
+
+* <kbd>.</kbd> means the **current line**
+
+* <kbd>N</kbd> means a **line number**
+
+* <kbd>.remark-code[/pattern/]</kbd> means a **match** of the pattern
+
+* <kbd>range1</kbd> <kbd>,</kbd> <kbd>range2</kbd> means between lines described by the expression
+
+Examples:
+
+* <kbd>:</kbd> <kbd>.</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>+</kbd> <kbd>2</kbd> <kbd>d</kbd>
+  <br><small>(deletes from current to 2 lines below)</small>
+
+* <kbd>:</kbd> <kbd>.remark-code[/hello/]</kbd> <kbd>,</kbd> <kbd>.remark-code[/world/]</kbd> <kbd>normal</kbd> <kbd>g</kbd> <kbd>U</kbd> <kbd>$</kbd>
+  <br><small>(make lines between the matches of '*hello*' and '*world*' uppercase)</small>
+
+* <kbd>:</kbd> <kbd>.</kbd> <kbd>,</kbd> <kbd>.remark-code[/world/]</kbd> <kbd>join</kbd>
+  <br><small>(join lines between the current and the first occurence of '*world*')</small>
+
+]
+
+---
+
+.left-column[
+## Command line integration
+]
+.right-column[
+Vim is integrated with the command line in the **right way**.
+
+**Visual selection** or **ranges** define which text is filtered.
+
+Examples:
+* <kbd>:</kbd> <kbd>%</kbd> <kbd>!</kbd> <kbd>.remark-code[grep -v 'hello']</kbd>
+<br><small>(removes all the lines that doesn't contain the string "hello")</small>
+
+* <kbd>:</kbd> <kbd>%</kbd> <kbd>!</kbd> <kbd>.remark-code[wc -c]</kbd>
+<br><small>(replace the file content with the count of characters present in the file)</small>
+
+* <kbd>:</kbd> <kbd>read</kbd> <kbd>!</kbd> <kbd>.remark-code[ls -l | awk '$5 > 1e6']</kbd>
+<br><small>(filters the outptut of <code>ls -l</code> keeping elements larger than 1MB)</small>
+    * **Note:** this is not a reliable way of doing it!!!
+]
+
+---
+
+.left-column[
+## Marks
+]
+.right-column[
+There is a command to mark a line of the file. This allows to **quickly return** to that same point.
+
+Examples:
+
+* <kbd>m</kbd> <kbd>a</kbd>
+<br><small>(saves the current cursor position in the mark slot <kbd>a</kbd>)</small>
+
+* <kbd>`</kbd> <kbd>a</kbd>
+<br><small>(goes to the line that is saved in the mark slot <kbd>a</kbd> )</small>
+
+Marks can be **chained as motions** in commands too.
+
+Examples:
+
+* <kbd>d</kbd> <kbd>`</kbd> <kbd>a</kbd>
+<br><small>(deletes from the current position to the point contained in <kbd>a</kbd>)</small>
+]
+
+---
+
+.left-column[
+## Registers
+]
+.right-column[
+Vim offers named "clipboards" called **registers**.
+
+Each register can contain different elements
+* Yanked/Deleted text
+
+* Macros
+
+The content of the registers is **simply** a character sequence.
+
+Clipboards are persisted across different sessions.
+]
+
+---
+
+.left-column[
+## Folds
+]
+.right-column[
+Folding is the ability to **hide lines** that you temporarily don't need.
+
+In vim the folding is a "verb" like delete.
+
+<kbd>z</kbd> <kbd>f</kbd> followed by a motion manually folds the text that falls within the motion.
+
+Text can be folded automatically based on some sequence of characters (usally "{{{")
+* This is not enabled by default
+
+Examples:
+
+* <kbd>z</kbd> <kbd>f</kbd> <kbd>a</kbd> <kbd>p</kbd>
+<br><small>(fold a paragraph including the newlines surrounding it)</small>
+
+* <kbd>z</kbd> <kbd>f</kbd> <kbd>2</kbd> <kbd>j</kbd>
+<br><small>(fold the current line plus two other downwards)</small>
+]
+
+---
+
+.left-column[
+## Macros
+]
+.right-column[
+A macro is a **recorded sequence of commands** that can be replayed as needed
+
+* To register a macro use: <kbd>ESC</kbd> <kbd>q</kbd> <kbd>register</kbd> <kbd>commands</kbd> <kbd>q</kbd>
+
+* To execute use: <kbd>@</kbd> <kbd>register</kbd>
+
+
+Macros in Vim can be quite powerful. By using the motions you can define macros that **depend only on the structure** of text (not on character positions or string lengths).
+
+Examples:
+
+* <kbd>ESC</kbd> <kbd>q</kbd> <kbd>a</kbd> <kbd>yy</kbd> <kbd>p</kbd> <kbd>CTRL-a</kbd> <kbd>q</kbd>
+<br><small>(records a macro in the <kbd>a</kbd> register that: duplicates the current line, and increments it)</small>
+
+    * To use this macro create a line that contains a number and run it with <kbd>@</kbd> <kbd>a</kbd>.
+
+* <kbd>ESC</kbd> <kbd>q</kbd> <kbd>z</kbd> <kbd>yy</kbd> <kbd>p</kbd> <kbd>V</kbd> <kbd>r</kbd> <kbd>=</kbd> <kbd>q</kbd>
+<br><small>(records a macro in the <kbd>z</kbd> register that: duplicates the current line, select it linewise and replaces each character with the character '*=*')</small>
+]
+
+---
+
+.left-column[
+## Other features
+]
+.right-column[
+### Plugins
+* Due to its long history vim have **many plugins**
+
+* Plugins like Vundle (there are alternatives) makes installing other plugins **very simple**
+
+    * Only need to add a line in the config file and run a command
+
+### Interface advantages
+
+* **Unlimited** vertical/horizontal split screens 
+
+    * Even with the same file open **multiple times**!
+
+* Tabs
+]
+
+---
+
+.left-column[
+## Other advantages
+]
+.right-column[
+* Text based configuration allows **versioning** on github-like services and easily **sharing** configuration across machines
+
+* The help system of Vim is very good
+
+* Without plugins the editor is **very small**
+
+    * Considering its size Vim is very feature rich
+
+        * 3MB for the binaries only
+
+        * other 25MB for runtime files (syntax highlighting, translations, many plugins)
+
+    * Even adding the plugins doens't increase the size very much (I have 42 plugins in 70MB)
+
+* Vim is able to open **huge files** (bigger than 1GB)
+
+    * This while **remaining responsive**
+
+* Tightly integrated programming language
+    * Actually has some strange bits
+]
+
+ 
+---
+
+.left-column[
+## Other advantages - cont'd
+]
+.right-column[
+* Vi is installed **almost everywhere**
+
+* Is able to open remote (ssh), compressed files
+
+* Still actively maintained
+
+* Very configurable
+
+    * Very flexible keybindings
+
+* Much of the the commands work in the same **consistent** way
+
+* Vim don't get in my way (most of the times)
+
+    * I don't have to fight back the editor to obtain what I want
+
+* Vim exists for **many platforms** (GNU/Linux, MacOS, Windows, and many other less adopted)
+]
+
+---
+
+.left-column[
+## Downsides
+]
+.right-column[
+* learning curve
+
+    * Vim can be **more difficult** to grasp espcially at the beginning
+
+<blockquote>
+Let’s be serious, the problem with Vim is not exactly that is "difficult" per se, it’s that it is so alien to any other text editing experience... .author[http://wrongsideofmemphis.com/]
+</blockquote>
+
+* Feels the sign of the time and lacks a modern UI
+
+* Lacks a good RPC interface
+
+]
+
+---
+
+.left-column[
+## Downsides - cont'd
+]
+.right-column[
+* Doesn't support asynchronous operations
+
+    * It cannot launch (without workarounds and limitations) background jobs
+
+* Old big codebase
+
+    * Code is not very modular
+
+    * Code is very intricated
+
+    * Few people know the structure of the codebase
+
+    * This means that core contributors are not many
+]
+
+---
+
+.left-column[
+## The future
+]
+.right-column[
+To address some of the problems highlighted in the previous slides a new project is born: [**NeoVim**](http://neovim.org)
+
+* This project is born after a [fundraising](https://www.bountysource.com/teams/neovim/fundraiser) by Thiago de Arruda
+
+The objectives of this project are:
+
+* .task-done[Asynchronous tasks]
+
+* .task-done[Remote API] (based on msgpack)
+
+* .task-ongoing[Refactor the code]
+
+* .task-ongoing[Substitute the integrated programming language with Lua]
+
+    * They are creating a VimL &#8594; Lua converter
+]
+---
+
+.left-column[
+## Vim everywhere
+]
+.right-column[
+Once you make your head around the modal way you want to have it **everywhere**.
+
+This combined with one-key bindings makes an **explosive mixture**.
+
+* There are some projects that enable this in other programs than Vim
+
+  * [Vimperator](http://www.vimperator.org/vimperator) or [Pentadactyl](http://5digits.org/pentadactyl/) in Firefox
+
+  * [XMonad](http://xmonad.org/) as window manager
+
+  * The cli-based [ranger](http://ranger.nongnu.org/) file manager
+
+  * The [sxiv](https://github.com/muennich/sxiv) image viewer
+
+  * **less** and **man** pages
+
+* Once you get used is **addicting**
+
+  * If you know what you want to do you should be able to do it without looking around 300 menus
+
+      * Shorcuts are ok carefully planned keystrokes works the best
+]
+
+---
+
+.left-column[
+## Useful resources
+]
+.right-column[
+* vimtutor: command line based tutorial that is part of vim
+
+* [Generate](http://vim-bootstrap.appspot.com/) your .vimrc the easy way
+
+* Some [tips](http://robertames.com/files/vim-editing.html) to use Vim efficently
+
+* A [collection](http://thomer.com/vi/vi.html) of Vim-related resources - (some links are broken)
+
+* A nice graphical [cheatsheet](http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html) collection
+
+* Some galleries where you can find [many](http://vimcolors.com/) different [colorschemes](http://cocopon.me/app/vim-color-gallery/)
+
+* There are even Vim [distributions](http://vim.spf13.com/) that gives you a prepackaged [configuration and plugins](https://github.com/carlhuda/janus)
+
+* Look for Vim [plugins](http://www.vim.org/scripts/)
+
+* Watch some very nice [screencasts](http://vimcasts.org/) that demonstrates Vim features and plugins 
+]
+
+---
+
+.left-column[
+## Some experience based tips
+]
+.right-column[
+* You should be careful not to press <kbd>CTRL</kbd> + <kbd>s</kbd> when in terminal (your muscle memory will probably do it to save the file). 
+
+    * This is the same as pressing the <kbd>Scroll Lock</kbd> key
+
+    * This is not a big problem however. To unlock your terminal just press <kbd>CTRL</kbd> + <kbd>q</kbd>
+
+* If you are not able to touch-type Vim will probably be less useful to you
+
+    * You should definitely learn to touch-type (even if you don't want learn Vim)
+
+* <kbd>Caps Lock</kbd> can be remapped to some more useful key
+
+    * <kbd>ESC</kbd> is a good choice for a Vim user
+]
+---
+
+.left-column[
+## Webography
+]
+.right-column[
+* [Vim for people who think things like Vim are weird and hard](http://csswizardry.com/2014/06/vim-for-people-who-think-things-like-vim-are-weird-and-hard/)
+
+* [Coming Home to Vim](http://stevelosh.com/blog/2010/09/coming-home-to-vim/)
+
+* [Why, oh WHY, do those #?@! nutheads use vi?](http://www.viemu.com/a-why-vi-vim.html)
+
+* [Why Atom Can’t Replace Vim](https://medium.com/@mkozlows/why-atom-cant-replace-vim-433852f4b4d1)
+
+* [Vim speed is not really the point](http://wrongsideofmemphis.com/2013/03/27/vim-speed-is-not-really-the-point/)
+
+* [Everyone Who Tried to Convince Me to use Vim was Wrong](http://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/)
+
+* [Why I use Vim](http://pascalprecht.github.io/2014/03/18/why-i-use-vim/)
+
+* [Your problem with Vim is that you don't grok vi.](http://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118)
+
+* [The vi input model](http://blog.ngedit.com/2005/06/03/the-vi-input-model/)
+
+* [A Suggested Path for Learning Vim](https://raw.githubusercontent.com/dahu/LearnVim/master/doc/learnvim.txt)
+
+* [ Two decades of productivity: Vim’s 20th anniversary](http://arstechnica.com/information-technology/2011/11/two-decades-of-productivity-vims-20th-anniversary/)
+]
+
+---
+
+## Thanks for your attention
+![Real programmers](img/real_programmers.png)
+<span class="citation">[Source](https://xkcd.com/378/)</span>
+<blockquote id="last_blockquote">"Don't get me wrong: Emacs is a great operating system it lacks a good editor, though." .author[http://thomer.com/]</blockquote>
+    </textarea>
+    <script src="js/remark.min.js" type="text/javascript"> </script>
+    <script type="text/javascript">
+      var hljs = remark.highlighter.engine;
+      // var slideshow = remark.create();
+      var slideshow = remark.create({
+          highlightStyle: 'monokai',
+          highlightLanguage: 'remark'
+        }) ;
+    </script>
+  </body>
+</html>
